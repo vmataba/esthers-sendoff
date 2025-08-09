@@ -12,11 +12,12 @@ Content-Type: application/json
 }
 
 ### Find Pledge
-GET http://localhost:9085/api/v1/pledges/ZTBhYjk5OTUtZjMzZS00Yzk3LWEyZDEtMzA0MDIyZjYyMjZm
+GET http://localhost:9085/api/v1/pledges/MzI5YTk3MDAtZGMwNC00ZDE3
 
 ### Add Pledge Installments
-POST http://localhost:9085/api/v1/pledges/ZTBhYjk5OTUtZjMzZS00Yzk3LWEyZDEtMzA0MDIyZjYyMjZm/installments
+POST http://localhost:9085/api/v1/pledges/MzI5YTk3MDAtZGMwNC00ZDE3/installments
 Content-Type: application/json
+Authorization: Basic YWRtaW46ZXN0aGVyQDIwMjU=
 
 [
   400.00,

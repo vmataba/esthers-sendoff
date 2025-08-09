@@ -1,6 +1,7 @@
 ### New Invitation Card
 POST http://localhost:9085/api/v1/invitation-cards
 Content-Type: application/json
+Authorization: Basic YWRtaW46ZXN0aGVyQDIwMjU=
 
 {
   "name": "Ms. Veronica Natalis",
@@ -9,7 +10,7 @@ Content-Type: application/json
 
 ### Find All Invitation Cards
 GET http://localhost:9085/api/v1/invitation-cards
-
+Authorization: Basic YWRtaW46ZXN0aGVyQDIwMjU=
 
 ### View Card
 GET http://localhost:9085/api/v1/invitation-cards/NzVmNzdjNzYtMzhkZi00NThmLThjY2QtYzk4YmM5ZmIwZjVh
