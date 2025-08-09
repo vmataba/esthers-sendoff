@@ -1,0 +1,15 @@
+### New Invitation Card
+POST http://localhost:9085/api/v1/invitation-cards
+Content-Type: application/json
+
+{
+  "name": "Ms. Veronica Natalis",
+  "phone": "09123456789"
+}
+
+### Find All Invitation Cards
+GET http://localhost:9085/api/v1/invitation-cards
+
+
+### View Card
+GET http://localhost:9085/api/v1/invitation-cards/NzVmNzdjNzYtMzhkZi00NThmLThjY2QtYzk4YmM5ZmIwZjVh

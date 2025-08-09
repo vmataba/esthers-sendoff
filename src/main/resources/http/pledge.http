@@ -1,0 +1,36 @@
+### All Pledges
+GET http://localhost:9085/api/v1/pledges
+
+### New Pledge
+POST http://localhost:9085/api/v1/pledges
+Content-Type: application/json
+
+{
+  "name": "Ms. Mirabel V. Mataba",
+  "phone": "09123456789",
+  "amount": 1000.00
+}
+
+### Find Pledge
+GET http://localhost:9085/api/v1/pledges/ZTBhYjk5OTUtZjMzZS00Yzk3LWEyZDEtMzA0MDIyZjYyMjZm
+
+### Add Pledge Installments
+POST http://localhost:9085/api/v1/pledges/ZTBhYjk5OTUtZjMzZS00Yzk3LWEyZDEtMzA0MDIyZjYyMjZm/installments
+Content-Type: application/json
+
+[
+  400.00,
+  500.00
+]
+
+### Load Pledge Installments
+GET http://localhost:9085/api/v1/pledges/ZTBhYjk5OTUtZjMzZS00Yzk3LWEyZDEtMzA0MDIyZjYyMjZm/installments
+
+### Remove Pledge Installments
+DELETE http://localhost:9085/api/v1/pledges/ZTBhYjk5OTUtZjMzZS00Yzk3LWEyZDEtMzA0MDIyZjYyMjZm/installments
+Content-Type: application/json
+
+[
+  "MmE2MDM4OTYtMTA2MS00M2Q4LTg2M2EtMDNmYTJkYWVmMGI0",
+  "NGM2YzgxODMtMTcyYS00MTJjLWE3ZWUtODgzOTZjMjhmNzQx"
+]

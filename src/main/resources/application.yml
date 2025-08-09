@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: esthers-sendoff
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/esthers_sendoff}
+    username: ${MYSQL_USER:admin}
+    password: ${MYSQL_PASSWORD:mysql009}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  port: ${SERVER_PORT:9085}
