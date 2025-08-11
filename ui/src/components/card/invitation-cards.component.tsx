@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { type InvitationCardModel, loadInvitationCards, deleteCard } from "../../services/invitation-card.service.ts";
 import { ApiResponseStatus } from "../../utils/api.util.ts";
 import InvitationCardForm from "./invitation-card-form";
+import { useNavigate } from "react-router-dom";
 
 const InvitationCards = () => {
     const [cards, setCards] = useState<InvitationCardModel[]>([]);
@@ -9,6 +10,7 @@ const InvitationCards = () => {
     const [error, setError] = useState<string | null>(null);
     const [selectedCard, setSelectedCard] = useState<InvitationCardModel | null>(null);
     const [isFormVisible, setIsFormVisible] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadCards();
@@ -42,6 +44,10 @@ const InvitationCards = () => {
     const handleEditCard = (card: InvitationCardModel) => {
         setSelectedCard(card);
         setIsFormVisible(true);
+    };
+
+    const handleViewCard = (cardId: string) => {
+        navigate(`/invitation-cards/${cardId}`);
     };
 
     const handleDeleteCard = async (id: string) => {
@@ -109,6 +115,12 @@ const InvitationCards = () => {
                                         <strong>Phone:</strong> {card.phone}
                                     </p>
                                     <div className="btn-group">
+                                        <button 
+                                            className="btn btn-outline-secondary" 
+                                            onClick={() => handleViewCard(card.id!)}
+                                        >
+                                            View
+                                        </button>
                                         <button 
                                             className="btn btn-outline-primary" 
                                             onClick={() => handleEditCard(card)}

@@ -10,6 +10,7 @@ export interface InvitationCardModel {
     id?: string
     name: string
     phone: string
+    createdAt?: string
 }
 
 
