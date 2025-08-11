@@ -1,7 +1,8 @@
 import './app.css'
+import Pledges from "./components/pledge/pledges.component.tsx";
 
 function App() {
- return <h1>Works</h1>
+    return <Pledges/>
 }
 
 export default App

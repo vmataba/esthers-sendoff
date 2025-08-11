@@ -1,0 +1,12 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+#root {
+    width: 60%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 600px ) {
+    #root {
+        width: 100%;
+    }
+}
