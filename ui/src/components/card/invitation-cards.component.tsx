@@ -33,7 +33,7 @@ const InvitationCards = () => {
         }
     };
 
-    const handleCardSubmit = (card: InvitationCardModel) => {
+    const handleCardSubmit = () => {
         loadCards();
         setIsFormVisible(false);
         setSelectedCard(null);
