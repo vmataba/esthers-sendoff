@@ -1,12 +1,13 @@
-import {useState} from "react";
-import {createPledge, type PledgeModel} from "../../services/pledge.service.ts";
+import {useEffect, useState} from "react";
+import {type PledgeModel, savePledge} from "../../services/pledge.service.ts";
 import {ApiResponseStatus} from "../../utils/api.util.ts";
 
 interface Props {
+    model: PledgeModel | null
     onSubmit: (pledge: PledgeModel) => void
 }
 
-function PledgeForm({onSubmit}: Props) {
+function PledgeForm({onSubmit, model}: Props) {
 
     const [formData, setFormData] = useState<PledgeModel>({
         name: '',
@@ -22,18 +23,26 @@ function PledgeForm({onSubmit}: Props) {
         });
     };
 
+    useEffect(() => {
+        if (!model) {
+            return;
+        }
+        setFormData({...model})
+    }, [model]);
+
     const isValid = () => {
         return formData.name.length > 0 && formData.phone.length > 0 && formData.amount > 0;
     };
 
     const handleSubmit = () => {
         if (isValid()) {
-            createPledge(formData).then(response => {
-                if (response.status !== ApiResponseStatus.CREATED) {
+            savePledge(formData).then(response => {
+                const saved = response.status === ApiResponseStatus.CREATED || response.status === ApiResponseStatus.OK;
+                if (!saved) {
                     alert(response.message);
                     return;
                 }
-                console.log('Pledge created successfully');
+                console.log('Saved created successfully');
                 resetForm();
                 onSubmit(response.body);
             });
@@ -46,6 +55,7 @@ function PledgeForm({onSubmit}: Props) {
                 <div className={'form-group'}>
                     <label htmlFor="name">Name</label>
                     <input type="text" className="form-control" id="name" placeholder="Name"
+                           value={formData.name}
                            onChange={(e) => {
                                setFormData({
                                    ...formData,
@@ -59,6 +69,7 @@ function PledgeForm({onSubmit}: Props) {
                 <div className={'form-group'}>
                     <label htmlFor="phone">Phone</label>
                     <input type="text" className="form-control" id="phone" placeholder="Phone"
+                           value={formData.phone}
                            onChange={(e) => {
                                setFormData({
                                    ...formData,
@@ -72,13 +83,13 @@ function PledgeForm({onSubmit}: Props) {
                 <div className={'form-group'}>
                     <label htmlFor="amount">Amount</label>
                     <input type="text" className="form-control" id="amount" placeholder="Amount"
+                           value={formData.amount}
                            onChange={(e) => {
                                setFormData({
                                    ...formData,
                                    amount: parseFloat(e.target.value)
                                });
-                           }}
-                    />
+                           }}/>
                 </div>
             </div>
         </div>

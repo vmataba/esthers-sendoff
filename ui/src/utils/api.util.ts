@@ -32,3 +32,11 @@ export const makeGetRequest = async <T>(url: string): Promise<ApiResponse<T>> =>
 export const makePostRequest = async <T>(url: string, body: unknown): Promise<ApiResponse<T>> => {
     return makeHttpRequest<T>(url, 'POST', body);
 };
+
+export const makePutRequest = async <T>(url: string, body: unknown): Promise<ApiResponse<T>> => {
+    return makeHttpRequest<T>(url, 'PUT', body);
+};
+
+export const makeDeleteRequest = async <T>(url: string): Promise<ApiResponse<T>> => {
+    return makeHttpRequest<T>(url, 'DELETE');
+};
