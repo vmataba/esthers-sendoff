@@ -4,6 +4,7 @@ import com.tabaapps.estherssendoff.config.InternalId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -28,6 +29,9 @@ public class Pledge {
     @NotNull(message = "amount is required")
     @Column(nullable = false, columnDefinition = "double(22,2)")
     private Double amount;
+
+    @Transient
+    private Double totalPaid;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

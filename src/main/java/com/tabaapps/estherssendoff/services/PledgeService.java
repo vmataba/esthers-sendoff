@@ -21,24 +21,39 @@ public class PledgeService {
 
     private final PledgeInstallmentRepository pledgeInstallmentRepository;
 
+    private Double computeTotalPaid(List<PledgeInstallment> installments) {
+        return installments.stream()
+                .mapToDouble(PledgeInstallment::getAmount)
+                .sum();
+    }
+
+
     public Pledge create(Pledge pledge) {
-        return pledgeRepository.save(pledge);
+        var model = pledgeRepository.save(pledge);
+        model.setTotalPaid(computeTotalPaid(pledgeInstallmentRepository.findByPledgeId(model.getId())));
+        return pledgeRepository.save(model);
     }
 
     public Pledge findOne(String id) {
-        return pledgeRepository.findById(id)
+        var model = pledgeRepository.findById(id)
                 .orElseThrow(() -> new InternalException(HttpStatus.NOT_FOUND, "Pledge not found"));
+        model.setTotalPaid(computeTotalPaid(pledgeInstallmentRepository.findByPledgeId(model.getId())));
+        return model;
     }
 
     public Pledge update(String id, Pledge payload) {
         Pledge pledge = findOne(id);
         pledge.setName(payload.getName());
         pledge.setAmount(payload.getAmount());
+        pledge.setTotalPaid(computeTotalPaid(pledgeInstallmentRepository.findByPledgeId(pledge.getId())));
         return pledgeRepository.save(pledge);
     }
 
     public List<Pledge> findAll() {
-        return pledgeRepository.findAll();
+        return pledgeRepository.findAll()
+                .stream()
+                .peek(pledge -> pledge.setTotalPaid(computeTotalPaid(pledgeInstallmentRepository.findByPledgeId(pledge.getId()))))
+                .toList();
     }
 
     public void delete(String id) {

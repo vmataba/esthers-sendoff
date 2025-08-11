@@ -12,7 +12,7 @@ function PledgeForm({onSubmit, model}: Props) {
     const [formData, setFormData] = useState<PledgeModel>({
         name: '',
         phone: '',
-        amount: 0
+        amount: 0.00
     });
 
     const resetForm = () => {

@@ -9,7 +9,7 @@ interface Props {
 
 const Pledge = (props: Props) => {
     const {model, onSelect, onDelete} = props;
-    const {name, phone, amount} = model;
+    const {name, phone, amount, totalPaid} = model;
 
     const handlePledgeDelete = (id: string) => {
         deletePledge(id).then(response => {
@@ -41,7 +41,10 @@ const Pledge = (props: Props) => {
                 </label>
             </li>
             <li key={'phone-' + model.id} style={{paddingLeft: '45px'}}>{phone}</li>
-            <li key={'amount-' + model.id} style={{paddingLeft: '45px', marginTop: '10px'}}>{amount}</li>
+            <li key={'amount-' + model.id} style={{paddingLeft: '45px', marginTop: '10px'}}>
+                Pledged <span className={'badge bg-info fw-bold'}> {amount}</span>
+                &nbsp; Paid <span className={'badge bg-success fw-bold'}> {totalPaid}</span>
+            </li>
         </ul>
 
         <div className={'action-buttons'} style={{display: 'flex'}}>

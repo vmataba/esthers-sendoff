@@ -11,6 +11,7 @@ export interface PledgeModel {
     name: string
     phone: string
     amount: number
+    totalPaid?: number
 }
 
 

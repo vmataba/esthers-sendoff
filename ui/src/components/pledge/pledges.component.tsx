@@ -50,10 +50,17 @@ function Pledges() {
         <input type="text" className="form-control" placeholder="Search pledges" aria-label="Search pledges"
                onChange={(e) => setSearchQuery(e.target.value)}/>
         <div className='mt-3' style={{textAlign: 'right'}}>
-            <button type="button" className="btn" style={{backgroundColor: 'deeppink', color: 'white'}}
-                    onClick={() => setShowPledgeForm(true)}>
-                Add Pledge
+            <button type="button" className={'btn'} style={{backgroundColor: 'deeppink', color: 'white'}}
+                    onClick={() => setShowPledgeForm(!showPledgeForm)}>
+                {showPledgeForm ? 'Cancel' : 'Add Pledge'}
             </button>
+        </div>
+
+        <div className={'panel'} style={{display: 'flex', justifyContent: 'space-around'}}>
+            <h4 style={{color: 'deeppink'}}>Total
+                Pledged: {pledges.reduce((acc, pledge) => acc + pledge.amount, 0)}</h4>
+            <h4 style={{color: 'deeppink'}}>Total
+                Paid: {pledges.reduce((acc, pledge) => pledge.totalPaid ? acc + pledge.totalPaid : acc, 0)}</h4>
         </div>
 
         <div className='pledge-form'>
