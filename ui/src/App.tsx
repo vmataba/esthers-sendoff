@@ -1,8 +1,8 @@
 import './app.css'
-import Pledges from "./components/pledge/pledges.component.tsx";
+import InvitationCards from "./components/card/invitation-cards.component.tsx";
 
 function App() {
-    return <Pledges/>
+    return <InvitationCards/>
 }
 
 export default App

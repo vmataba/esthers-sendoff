@@ -37,9 +37,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(authManager -> authManager
                         // Admin-only routes
-                        .requestMatchers(HttpMethod.POST, "/api/v1/invitation-cards").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/invitation-cards").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/invitation-cards/{id}").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.POST, "/api/v1/invitation-cards").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.GET, "/api/v1/invitation-cards").hasRole("ADMIN")
+                        //.requestMatchers(HttpMethod.PUT, "/api/v1/invitation-cards/{id}").hasRole("ADMIN")
                         // Public route
                         .requestMatchers(HttpMethod.GET, "/api/v1/invitation-cards/{id}").permitAll()
                         // Protected routes requiring authentication

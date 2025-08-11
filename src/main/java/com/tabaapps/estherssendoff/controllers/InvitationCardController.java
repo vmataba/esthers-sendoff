@@ -53,7 +53,7 @@ public class InvitationCardController {
                 .build();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public Response<InvitationCard> update(@PathVariable String id, @RequestBody @Valid InvitationCard invitationCard) {
         return Response.<InvitationCard>builder()
                 .status(HttpStatus.OK)
