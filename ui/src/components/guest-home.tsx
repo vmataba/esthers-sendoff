@@ -56,32 +56,7 @@ export const GuestHome = () => {
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
-                overflow: 'hidden',
-                '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: `
-                        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.2) 0%, transparent 50%),
-                        linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%)
-                    `,
-                    zIndex: 1
-                },
-                '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.1) 100%)',
-                    zIndex: 1
-                }
+                overflow: 'hidden'
             }}
         >
             {/* Falling Stars Container */}
@@ -99,7 +74,7 @@ export const GuestHome = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'relative',
-                    zIndex: 2,
+                    zIndex: 4,
                     py: 4
                 }}
             >
@@ -108,21 +83,15 @@ export const GuestHome = () => {
                         elevation={24}
                         className="hero-card"
                         sx={{
-                            backdropFilter: 'blur(20px)',
-                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                            backdropFilter: 'blur(0)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
                             border: '1px solid rgba(255, 255, 255, 0.2)',
                             borderRadius: 6,
                             overflow: 'hidden',
                             position: 'relative',
+                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                             '&::before': {
-                                content: '""',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                                zIndex: -1
+                                content: 'none'
                             }
                         }}
                     >
@@ -135,13 +104,9 @@ export const GuestHome = () => {
                                 sx={{
                                     fontWeight: 700,
                                     fontSize: {xs: '2rem', sm: '2.5rem', md: '3.5rem'},
-                                    background: 'linear-gradient(45deg, #2C3E50, #34495E, #1A252F)',
-                                    backgroundClip: 'text',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
+                                    color: '#2C3E50',
                                     mb: 2,
-                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
-                                    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))'
+                                    textShadow: '1px 1px 2px rgba(255, 255, 255, 0.5)'
                                 }}>
                                 Welcome to Esther's Sendoff
                             </Typography>
@@ -204,7 +169,7 @@ export const GuestHome = () => {
             <Box
                 sx={{
                     position: 'relative',
-                    zIndex: 2,
+                    zIndex: 4,
                     p: {xs: 1, sm: 2},
                     display: 'flex',
                     justifyContent: {xs: 'center', sm: 'flex-end'}
