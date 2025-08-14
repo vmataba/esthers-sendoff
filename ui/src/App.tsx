@@ -1,47 +1,77 @@
-import './app.css'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import InvitationCards from "./components/card/invitation-cards.component.tsx";
-import Pledges from "./components/pledge/pledges.component.tsx";
-import InvitationCardDetails from "./components/card/invitation-card-details.component.tsx";
-import Login from "./components/auth/login.component.tsx";
-import Navbar from "./components/navigation/navbar.component.tsx";
-import ProtectedRoute from "./components/auth/protected-route.component.tsx";
+import {useEffect} from 'react';
+import {BrowserRouter, Navigate, Route, Routes, useNavigate, useSearchParams} from 'react-router-dom';
+import {AuthProvider} from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import {GuestHome} from './components/guest-home';
+import {AdminLogin} from './components/admin/admin-login.component';
+import {AdminLayout} from './components/admin/admin-layout.component';
+import {AdminDashboardContent} from './components/admin/admin-dashboard-content.component';
+import {AdminsContent} from './components/admin/admins-content.component';
+import {InvitationCards} from './components/admin/invitation-cards.component';
+import {InviteesReport} from './components/admin/invitees-report.component';
+import {InviteePledges} from './components/invitees-pledges.component';
+import './app.css';
+import {InvitationCard} from "./components/invitation-card/invitation-card.component";
 
-function App() {
-    return (
-        <Router>
-            <Navbar />
-            <div className="container mt-4">
-                <Routes>
-                    {/* Redirect root to pledges as default */}
-                    <Route path="/" element={<Navigate to="/pledges" replace />} />
-                    
-                    {/* Public Routes */}
-                    <Route path="/pledges" element={<Pledges />} />
-                    <Route path="/invitation-cards/:id" element={<InvitationCardDetails />} />
-                    <Route path="/login" element={<Login />} />
-                    
-                    {/* Protected Routes */}
-                    <Route 
-                        path="/invitation-cards" 
-                        element={
-                            <ProtectedRoute>
-                                <InvitationCards />
-                            </ProtectedRoute>
-                        } 
-                    />
-                    
-                    {/* 404 - Not Found */}
-                    <Route path="*" element={
-                        <div className="text-center mt-5">
-                            <h2>Page Not Found</h2>
-                            <p>The requested page does not exist.</p>
-                        </div>
-                    } />
-                </Routes>
-            </div>
-        </Router>
-    );
+
+const AppWrapper = (props: any) => {
+    const [searchParams] = useSearchParams();
+    const path = searchParams.get('path') ?? null;
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (path) {
+            navigate(path);
+        }
+    });
+    return <div>{props.children}</div>
 }
 
-export default App
+
+function App() {
+
+
+    return (
+        <AuthProvider>
+            <BrowserRouter basename="/esthers-sendoff">
+                <AppWrapper>
+                    <div className="App">
+                        <Routes>
+                            {/* Guest Routes */}
+                            <Route path="/" element={<GuestHome/>}/>
+                            <Route path="invitees" element={<InviteePledges/>}/>
+                            <Route path="pledges/:cardId" element={<InviteePledges/>}/>
+                            <Route path="pledges" element={<InviteePledges/>}/>
+                            <Route path="invitation-card/:id" element={<InvitationCard/>}/>
+
+                            {/* Admin Login Route */}
+                            <Route path="admin/login" element={<AdminLogin/>}/>
+
+                            {/* Protected Admin Routes with Sidebar Layout */}
+                            <Route
+                                path="admin"
+                                element={
+                                    <ProtectedRoute>
+                                        <AdminLayout/>
+                                    </ProtectedRoute>
+                                }
+                            >
+                                <Route index element={<Navigate to="dashboard" replace/>}/>
+                                <Route path="dashboard" element={<AdminDashboardContent/>}/>
+                                <Route path="admins" element={<AdminsContent/>}/>
+                                <Route path="invitees" element={<InvitationCards/>}/>
+                                <Route path="reports" element={<InviteesReport/>}/>
+                                <Route path="pledges" element={<InviteePledges/>}/>
+                            </Route>
+
+                            {/* Catch all route */}
+                            <Route path="*" element={<Navigate to="/" replace/>}/>
+                        </Routes>
+                    </div>
+                </AppWrapper>
+            </BrowserRouter>
+        </AuthProvider>
+
+    )
+}
+
+export default App;

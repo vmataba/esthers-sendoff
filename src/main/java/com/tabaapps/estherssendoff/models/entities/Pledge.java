@@ -8,9 +8,9 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Data
 @Entity
@@ -33,7 +33,6 @@ public class Pledge {
     @Transient
     private Double totalPaid;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Africa/Nairobi"));
 
 }

@@ -1,43 +1,30 @@
 import {
-    type ApiResponse,
-    makeDeleteRequest,
-    makeGetRequest,
-    makePostRequest,
-    makePutRequest
-} from "../utils/api.util.ts";
+    deleteFromFirebase,
+    FirebaseNode,
+    postToFirebase,
+    readCollectionFromFirebase,
+    readFromFirebase,
+    updateInFirebase
+} from "../config/firebase.config";
+import type {InvitationCard} from "../models/invitation-card.model";
 
-export interface InvitationCardModel {
-    id?: string
-    name: string
-    phone: string
-    createdAt?: string
+export const loadInvitationCards = async (): Promise<InvitationCard[]> => {
+    return await readCollectionFromFirebase<InvitationCard>(FirebaseNode.INVITATION_CARD);
 }
 
+export const createInvitationCard = async (invitationCard: InvitationCard): Promise<string> => {
+    return await postToFirebase(FirebaseNode.INVITATION_CARD, invitationCard);
 
-export const loadInvitationCards = async (): Promise<ApiResponse<InvitationCardModel[]>> => {
-    return makeGetRequest<InvitationCardModel[]>('/api/v1/invitation-cards');
 }
 
-const createInvitationCard = async (model: InvitationCardModel): Promise<ApiResponse<InvitationCardModel>> => {
-    return makePostRequest<InvitationCardModel>('/api/v1/invitation-cards', model);
+export const updateInvitationCard = async (invitationCard: InvitationCard) => {
+    return await updateInFirebase(FirebaseNode.INVITATION_CARD, invitationCard.id, invitationCard);
 }
 
-const updateInvitationCard = async (model: InvitationCardModel): Promise<ApiResponse<InvitationCardModel>> => {
-    return makePutRequest<InvitationCardModel>(`/api/v1/invitation-cards/${model.id}`, model);
+export const viewInvitationCard = async (id: string): Promise<InvitationCard | null> => {
+    return await readFromFirebase(FirebaseNode.INVITATION_CARD, id);
 }
 
-export const saveCard = async (model: InvitationCardModel): Promise<ApiResponse<InvitationCardModel>> => {
-    if (model.id) {
-        return updateInvitationCard(model);
-    } else {
-        return createInvitationCard(model);
-    }
-}
-
-export const deleteCard = async (id: string): Promise<ApiResponse<void>> => {
-    return makeDeleteRequest<void>(`/api/v1/invitation-cards/${id}`);
-}
-
-export const viewCard = async (id: string): Promise<ApiResponse<InvitationCardModel>> => {
-    return makeGetRequest<InvitationCardModel>(`/api/v1/invitation-cards/${id}`);
+export const removeInvitationCard = async (id: string) => {
+    return await deleteFromFirebase(FirebaseNode.INVITATION_CARD, id);
 }

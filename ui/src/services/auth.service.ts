@@ -1,69 +1,51 @@
-import {type ApiResponse, ApiResponseStatus, makeGetRequest} from '../utils/api.util';
+import type { Admin } from "../models/admin.model";
+import { loginAdmin as adminServiceLogin } from "./admin.service";
 
-export interface AuthUser {
-    username: string;
-    password: string;
+export interface AuthState {
+    isAuthenticated: boolean;
+    admin: Admin | null;
 }
 
-// Store auth token in session storage
-export const storeAuthToken = (username: string, password: string): void => {
-    const token = btoa(`${username}:${password}`);
-    sessionStorage.setItem('auth_token', token);
-};
-
-// Get the auth token from session storage
-export const getAuthToken = (): string | null => {
-    return sessionStorage.getItem('auth_token');
-};
-
-// Remove the auth token from session storage (logout)
-export const removeAuthToken = (): void => {
-    sessionStorage.removeItem('auth_token');
-};
-
-// Check if user is authenticated
-export const isAuthenticated = (): boolean => {
-    return getAuthToken() !== null;
-};
-
-// Login function - will attempt to make a request to a protected endpoint to verify credentials
-export const login = async (username: string, password: string): Promise<ApiResponse<boolean>> => {
-    // Store credentials first
-    storeAuthToken(username, password);
-
-    // Try to access a protected endpoint to verify credentials
+export const loginAdmin = async (email: string, password: string): Promise<Admin | null> => {
     try {
-        const response = await makeGetRequest<void>('/api/v1/invitation-cards');
+        // Use the admin service login function which handles both default admin and Firebase admins
+        const admin = await adminServiceLogin(email, password);
 
-        // If request was successful, user is authenticated
-        if (response.status === ApiResponseStatus.OK) {
-            return {
-                status: ApiResponseStatus.OK,
-                body: true,
-                message: 'Authentication successful'
-            };
-        } else {
-            // If request failed, remove the auth token and return error
-            removeAuthToken();
-            return {
-                status: ApiResponseStatus.UNAUTHORIZED,
-                body: false,
-                message: response.message || 'Authentication failed'
-            };
+        if (admin) {
+            // Store in localStorage for persistence
+            localStorage.setItem('adminAuth', JSON.stringify({
+                isAuthenticated: true,
+                admin: admin
+            }));
+            return admin;
         }
+        return null;
     } catch (error) {
-        // If request failed, remove the auth token and return error
-        removeAuthToken();
-        console.error('An error occurred while logging in ', error);
-        return {
-            status: ApiResponseStatus.UNAUTHORIZED,
-            body: false,
-            message: 'Authentication failed'
-        };
+        console.error('Login error:', error);
+        return null;
     }
 };
 
-// Logout function
-export const logout = (): void => {
-    removeAuthToken();
+export const logoutAdmin = (): void => {
+    localStorage.removeItem('adminAuth');
+};
+
+export const getAuthState = (): AuthState => {
+    try {
+        const stored = localStorage.getItem('adminAuth');
+        if (stored) {
+            return JSON.parse(stored);
+        }
+    } catch (error) {
+        console.error('Error reading auth state:', error);
+    }
+
+    return {
+        isAuthenticated: false,
+        admin: null
+    };
+};
+
+export const isAuthenticated = (): boolean => {
+    return getAuthState().isAuthenticated;
 };

@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  esthers-sendoff-api:
+    image: registry.tabaapps.com/esthers-sendoff-api:1.0.0
+    container_name: esthers-sendoff-api
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=jdbc:mysql://146.19.133.201:3306/esthers_sendoff
+      - DATABASE_USERNAME=admin
+      - DATABASE_PASSWORD=mysql12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_PORT=8080
+    ports:
+      - "8080:8080"
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
