@@ -1,10 +1,11 @@
-import { type Invitee} from "../models/invitee.model";
+import {type Invitee} from "../models/invitee.model";
 import {useEffect, useMemo, useState} from "react";
 import {loadInvitees, registerInvitee, updateInvitee} from "../services/invitee.service";
 import {useAuth} from "../contexts/AuthContext";
 import {links} from "../config/links.config";
 import {viewInvitationCard} from '../services/invitation-card.service';
-// Import the proper Material UI Grid v5 component
+
+
 import {
     Alert,
     alpha,
@@ -45,6 +46,8 @@ import {
     VisibilityOff as VisibilityOffIcon
 } from '@mui/icons-material';
 import {useParams} from "react-router-dom";
+import whatsAppIcon from '../assets/images/whatsapp-icon.svg';
+import backgroundImage from '../assets/images/guest-background.png';
 
 // Override Material UI Grid to add 'item' property support for TypeScript
 type GridProps = React.ComponentProps<typeof MuiGrid> & {
@@ -1430,7 +1433,7 @@ export const InviteePledges = () => {
                 }}>
                     <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1}}>
                         <img
-                            src="./images/whatsapp-icon.svg"
+                            src={`${whatsAppIcon}`}
                             alt="WhatsApp"
                             style={{width: '32px', height: '32px', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'}}
                         />
@@ -1454,7 +1457,7 @@ export const InviteePledges = () => {
                             border: '3px solid white'
                         }
                     }}>
-                        <img src="./images/11.gif" alt="Wedding"/>
+                        <img src={`${backgroundImage}`} alt="Wedding"/>
                     </Box>
                 </DialogContent>
                 <DialogActions sx={{
@@ -1492,7 +1495,7 @@ export const InviteePledges = () => {
                             }
                         }}
                         startIcon={<img
-                            src="./images/whatsapp-icon.svg"
+                            src={`${whatsAppIcon}`}
                             alt="WhatsApp"
                             style={{width: '20px', height: '20px', filter: 'brightness(0) invert(1)'}}
                         />}
