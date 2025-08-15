@@ -316,7 +316,6 @@
 
 /* Legacy styles for compatibility */
 .guest-home {
-    min-height: 100vh;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     background-size: cover;
     background-position: center;
@@ -324,6 +323,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .guest-home::before {
@@ -344,7 +348,7 @@
     justify-content: center;
     position: relative;
     z-index: 2;
-    padding: 2rem;
+    padding: 0;
 }
 
 .hero-content {

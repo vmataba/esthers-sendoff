@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {Box, Button, Card, CardContent, Chip, Container, Stack, Typography} from '@mui/material';
 import {AdminPanelSettings as AdminIcon, Favorite as FavoriteIcon} from '@mui/icons-material';
 import './guest-home.css';
-import backgroundImage from '../assets/images/esther-1.jpg';
+import backgroundImage from '../assets/images/guest-background.jpeg'
 
 export const GuestHome = () => {
     useEffect(() => {
@@ -47,7 +47,10 @@ export const GuestHome = () => {
     return (
         <Box
             sx={{
-                minHeight: '100vh',
+                padding: 0,
+                margin: 0,
+                width: '100%',
+                height: '100vh',
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -59,6 +62,7 @@ export const GuestHome = () => {
                 overflow: 'hidden'
             }}
         >
+
             {/* Falling Stars Container */}
             <Box className="stars-container"
                  sx={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 3, pointerEvents: 'none'}}/>
@@ -74,8 +78,7 @@ export const GuestHome = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'relative',
-                    zIndex: 4,
-                    py: 4
+                    zIndex: 4
                 }}
             >
                 <Container maxWidth="md">
