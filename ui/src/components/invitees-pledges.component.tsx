@@ -674,7 +674,7 @@ export const InviteePledges = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{p: {xs: 1, sm: 2}, display: 'grid', gap: {xs: 1, sm: 1.5}, width: '100%'}}>
+                <Box sx={{p: {xs: 2, sm: 2}, display: 'grid', gap: {xs: 2, sm: 1.5}, width: '100%'}}>
                     {filteredPledges.map((pledge, index) => {
                         const progressPercentage = getProgressPercentage(pledge.paidAmount || 0, pledge.pledgeAmount || 0);
                         const progressColor = getProgressColor(progressPercentage);
@@ -712,9 +712,15 @@ export const InviteePledges = () => {
                                     borderBottomLeftRadius: 1.5
                                 }}/>
 
-                                <Box sx={{display: 'flex', alignItems: 'center', gap: 2, width: '100%'}}>
+                                <Box sx={{
+                                    display: 'flex', 
+                                    flexDirection: {xs: 'column', sm: 'row'}, 
+                                    alignItems: {xs: 'flex-start', sm: 'center'}, 
+                                    gap: 2, 
+                                    width: '100%'
+                                }}>
                                     {/* Avatar and Name */}
-                                    <Box sx={{display: 'flex', alignItems: 'center', gap: 1.5, flex: '0 0 auto'}}>
+                                    <Box sx={{display: 'flex', alignItems: 'center', gap: 1.5, flex: '0 0 auto', width: {xs: '100%', sm: 'auto'}}}>
                                         <Avatar
                                             sx={{
                                                 background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
@@ -780,7 +786,7 @@ export const InviteePledges = () => {
                                     </Box>
 
                                     {/* Pledge Amount */}
-                                    <Box sx={{flex: '0 0 auto', textAlign: 'right', minWidth: 100}}>
+                                    <Box sx={{flex: '0 0 auto', textAlign: {xs: 'left', sm: 'right'}, minWidth: 100, width: {xs: '100%', sm: 'auto'}, mt: {xs: 1, sm: 0}}}>
                                         <Typography
                                             variant="body2"
                                             sx={{
@@ -809,12 +815,13 @@ export const InviteePledges = () => {
                                     </Box>
 
                                     {/* Progress and Actions */}
-                                    <Box sx={{flex: 1, minWidth: 120}}>
+                                    <Box sx={{flex: 1, minWidth: 120, width: {xs: '100%', sm: 'auto'}, mt: {xs: 2, sm: 0}}}>
                                         <Box sx={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'space-between',
-                                            mb: 0.5
+                                            mb: 0.5,
+                                            width: '100%'
                                         }}>
                                             <Typography
                                                 variant="caption"
