@@ -72,7 +72,7 @@ export const InvitationCard = () => {
                 <span className="highlight">Esther Mmbaga</span><br/><br/> Anatarajia kufunga ndoa takatifu
                 tarehe <strong>15/11/2025</strong> Dar es Salaam.<br/> Hivyo ukiwa ndugu jamaa na rafiki wa karibu na
                 familia hii, <br/> tunaomba mchango wako wa hali
-                na mali kuhakikisha shughuli hii inafanikiwa.<br/> Ili kufanikisha shughuli hii muhimu karibu kwa
+                na mali kuhakikisha shughuli ya kumuaga binti yao tar <strong>8/11/2025</strong> huko Same inafanikiwa.<br/> Ili kufanikisha shughuli hii muhimu karibu kwa
                 mchango/ahadi.
             </div>
 
@@ -80,8 +80,8 @@ export const InvitationCard = () => {
                 <div className="copyable" onClick={() => copyToClipboard('0785631012')}>
                     0785631012 (MPESA) - ESTHER MICHAEL MMBAGA
                 </div>
-                <div className="copyable" onClick={() => copyToClipboard('0152225218900')}>
-                    0152225218900 (CRDB) - ESTHER MICHAEL MMBAGA
+                <div className="copyable" onClick={() => copyToClipboard('40210004133')}>
+                    40210004133 (NMB) - ESTHER MICHAEL MMBAGA
                 </div>
             </div>
 
